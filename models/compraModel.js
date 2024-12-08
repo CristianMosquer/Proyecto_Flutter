@@ -1,35 +1,35 @@
 import mongoose from "mongoose";
+
 const compraSchema = new mongoose.Schema(
   {
-    idProveedor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Proveedor",
+    proveedor: { // Campo textual para el proveedor (nombre, NIT, o similar)
+      type: String,
       required: true,
     },
-    facturaProveedor: {
+    facturaProveedor: { // Número de la factura
       type: Number,
       required: true,
       unique: true,
     },
-    cantidad: {
+    cantidad: { // Cantidad de productos comprados
       type: Number,
       required: true,
     },
-    total: {
+    total: { // Total del valor de la compra
       type: Number,
       required: true,
     },
-    fechaCompra: {
+    fechaCompra: { // Fecha en la que se realiza la compra
       type: Date,
       default: Date.now,
     },
-    estadoCompra: {
+    estadoCompra: { // Estado de la compra (activa o no)
       type: Boolean,
       default: true,
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // Agrega createdAt y updatedAt automáticamente
   }
 );
 

@@ -1,56 +1,54 @@
 import mongoose from "mongoose";
 
-// Esquema para los datos de Proveedor
 const proveedorSchema = new mongoose.Schema(
   {
-    nitProveedor: {
+    nitProveedor: { // Número de Identificación Tributaria del proveedor
       type: Number,
       required: true,
       unique: true,
     },
-    contacto: {
+    contacto: { // Nombre de la persona de contacto
       type: String,
       required: true,
     },
-    nombreEmpresa: {
+    nombreEmpresa: { // Nombre de la empresa
       type: String,
       required: true,
     },
-    direccionEmpresa: {
+    direccionEmpresa: { // Dirección física de la empresa
       type: String,
       required: true,
     },
-    deptoEmpresa: {
+    deptoEmpresa: { // Departamento donde está ubicada la empresa
       type: String,
       required: true,
     },
-    paisEmpresa: {
+    paisEmpresa: { // País de la empresa
       type: String,
       required: true,
     },
-    ciudEmpresa: {
+    ciudEmpresa: { // Ciudad de la empresa
       type: String,
       required: true,
     },
-    telefProveedor: {
+    telefProveedor: { // Teléfono de contacto
       type: Number,
       required: true,
     },
-    emailProveedor: {
+    emailProveedor: { // Email de contacto
       type: String,
       required: true,
     },
-    estadoProveedor: {
+    estadoProveedor: { // Estado del proveedor (activo o no)
       type: Boolean,
       default: true,
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // Agrega createdAt y updatedAt automáticamente
   }
 );
 
-// Verifica si el modelo ya ha sido compilado para evitar recompilaciones
 const Proveedor =
   mongoose.models.Proveedor || mongoose.model("Proveedor", proveedorSchema);
 
