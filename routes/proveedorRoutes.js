@@ -1,59 +1,16 @@
 import express from "express";
 import {
-  getProveedores,
-  getProveedorById,
-  createProveedor,
-  updateProveedor,
-  deleteProveedor,
-} from "../Controllers/proveedorController.js";
+  getCompras,
+  getCompraById,
+  createCompra,
+  updateCompra,
+  deleteCompra,
+} from "../controllers/compraController.js";  // Ruta corregida
 
 const router = express.Router();
 
-/**
- * Rutas para gestionar proveedores
- */
+router.route("/").get(getCompras).post(createCompra);
 
-// Ruta para obtener todos los proveedores y crear un nuevo proveedor
-router
-  .route("/")
-  .get(async (req, res, next) => {
-    try {
-      await getProveedores(req, res);
-    } catch (error) {
-      next(error); // Manejo de errores
-    }
-  })
-  .post(async (req, res, next) => {
-    try {
-      await createProveedor(req, res);
-    } catch (error) {
-      next(error); // Manejo de errores
-    }
-  });
-
-// Ruta para manejar un proveedor específico por ID
-router
-  .route("/:id")
-  .get(async (req, res, next) => {
-    try {
-      await getProveedorById(req, res);
-    } catch (error) {
-      next(error); // Manejo de errores
-    }
-  })
-  .put(async (req, res, next) => {
-    try {
-      await updateProveedor(req, res);
-    } catch (error) {
-      next(error); // Manejo de errores
-    }
-  })
-  .delete(async (req, res, next) => {
-    try {
-      await deleteProveedor(req, res);
-    } catch (error) {
-      next(error); // Manejo de errores
-    }
-  });
+router.route("/:id").get(getCompraById).put(updateCompra).delete(deleteCompra);
 
 export default router;
