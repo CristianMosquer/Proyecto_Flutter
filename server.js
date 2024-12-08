@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/database.js";
 import proveedorRoutes from "./routes/proveedorRoutes.js";
+import Compra from "./models/compraModel.js";
+import CompraRoutes from "./routesCompraRoutes.js";
 
 dotenv.config(); // Cargar variables de entorno desde el archivo .env
 
@@ -18,6 +20,7 @@ app.use(express.json()); // Permitir lectura de JSON en las solicitudes
 
 // Rutas principales
 app.use("/api/proveedores", proveedorRoutes);
+app.use("/api/compra", CompraRoutes);
 
 // Middleware para manejar rutas no encontradas
 app.use((req, res, next) => {
