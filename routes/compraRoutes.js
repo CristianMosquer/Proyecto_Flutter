@@ -10,7 +10,13 @@ import {
 const router = express.Router();
 
 // Definición de las rutas para compras
-router.route("/").get(getCompras).post(createCompra);
-router.route("/:id").get(getCompraById).put(updateCompra).delete(deleteCompra);
+router.route("/") // Ruta raíz de compras
+  .get(getCompras)     // Obtener todas las compras
+  .post(createCompra); // Crear una nueva compra
+
+router.route("/:id") // Ruta con parámetro ID para operaciones específicas
+  .get(getCompraById)   // Obtener una compra por ID
+  .put(updateCompra)    // Actualizar una compra existente
+  .delete(deleteCompra); // Eliminar una compra
 
 export default router;
