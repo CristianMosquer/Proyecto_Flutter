@@ -3,29 +3,28 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/database.js";
 import proveedorRoutes from "./routes/proveedorRoutes.js";
-import compraRoutes from "./routes/compraRoutes.js"; // Ruta corregida
+import compraRoutes from "./routes/compraRoutes.js";
 
-dotenv.config(); // Cargar variables de entorno desde el archivo .env
+dotenv.config(); // Cargar variables de entorno
 
 const app = express();
 
 // Conectar a la base de datos
 connectDB();
 
-// Middleware globales
-app.use(cors()); // Habilitar CORS para solicitudes desde diferentes dominios
-app.use(express.json()); // Permitir lectura de JSON en las solicitudes
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-// Rutas principales
+// Rutas
 app.use("/api/proveedores", proveedorRoutes);
-app.use("/api/compra", compraRoutes); // Nombre actualizado
+app.use("/api/compras", compraRoutes);
 
-// Middleware para manejar rutas no encontradas
+// Middleware para manejar errores
 app.use((req, res, next) => {
   res.status(404).json({ message: "Ruta no encontrada" });
 });
 
-// Middleware para manejar errores generales
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
@@ -33,9 +32,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Configuración del puerto y escucha del servidor
+// Configuración del puerto y servidor
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

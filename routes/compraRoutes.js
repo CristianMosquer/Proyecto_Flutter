@@ -5,13 +5,11 @@ import {
   createCompra,
   updateCompra,
   deleteCompra,
-} from "../Controllers/compraController";
-
+} from "../controllers/compraController.js";
 
 const router = express.Router();
 
 router.route("/").get(getCompras).post(createCompra);
-
 router.route("/:id").get(getCompraById).put(updateCompra).delete(deleteCompra);
 
 export default router;

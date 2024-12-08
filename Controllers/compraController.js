@@ -31,7 +31,11 @@ export const createCompra = async (req, res) => {
     const compraCreada = await compra.save();
     res.status(201).json(compraCreada);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.code === 11000) {
+      res.status(400).json({ message: "Número de factura ya existe" });
+    } else {
+      res.status(400).json({ message: error.message });
+    }
   }
 };
 
