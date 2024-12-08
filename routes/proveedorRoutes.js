@@ -1,16 +1,22 @@
 import express from "express";
 import {
-  getCompras,
-  getCompraById,
-  createCompra,
-  updateCompra,
-  deleteCompra,
-} from "../Controllers/compraController.js"; // Ruta corregida
+  getProveedores,
+  getProveedorById,
+  createProveedor,
+  updateProveedor,
+  deleteProveedor,
+} from "../Controllers/proveedorController.js"; // Ruta corregida
 
 const router = express.Router();
 
-router.route("/").get(getCompras).post(createCompra);
+// Definición de las rutas para proveedores
+router.route("/") // Ruta raíz de proveedores
+  .get(getProveedores)    // Obtener todos los proveedores
+  .post(createProveedor); // Crear un nuevo proveedor
 
-router.route("/:id").get(getCompraById).put(updateCompra).delete(deleteCompra);
+router.route("/:id") // Ruta con parámetro ID para operaciones específicas
+  .get(getProveedorById)   // Obtener un proveedor por ID
+  .put(updateProveedor)    // Actualizar un proveedor existente
+  .delete(deleteProveedor); // Eliminar un proveedor
 
 export default router;
