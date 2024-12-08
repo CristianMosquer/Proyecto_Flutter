@@ -5,10 +5,11 @@ import {
   createCompra,
   updateCompra,
   deleteCompra,
-} from "../controllers/compraController.js";
+} from "../controllers/compraController.js"; // Ruta corregida
 
 const router = express.Router();
 
+// Definición de las rutas para compras
 router.route("/").get(getCompras).post(createCompra);
 router.route("/:id").get(getCompraById).put(updateCompra).delete(deleteCompra);
 
