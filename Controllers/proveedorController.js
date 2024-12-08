@@ -1,5 +1,6 @@
 import Proveedor from "../models/proveedor.js";
 
+// Obtener todos los proveedores
 export const getProveedores = async (req, res) => {
   try {
     const proveedores = await Proveedor.find({});
@@ -9,6 +10,7 @@ export const getProveedores = async (req, res) => {
   }
 };
 
+// Obtener un proveedor por ID
 export const getProveedorById = async (req, res) => {
   try {
     const proveedor = await Proveedor.findById(req.params.id);
@@ -22,6 +24,7 @@ export const getProveedorById = async (req, res) => {
   }
 };
 
+// Crear un nuevo proveedor
 export const createProveedor = async (req, res) => {
   try {
     const proveedor = new Proveedor(req.body);
@@ -32,6 +35,7 @@ export const createProveedor = async (req, res) => {
   }
 };
 
+// Actualizar un proveedor
 export const updateProveedor = async (req, res) => {
   try {
     const proveedor = await Proveedor.findById(req.params.id);
@@ -47,6 +51,7 @@ export const updateProveedor = async (req, res) => {
   }
 };
 
+// Eliminar un proveedor
 export const deleteProveedor = async (req, res) => {
   try {
     const proveedor = await Proveedor.findById(req.params.id);
