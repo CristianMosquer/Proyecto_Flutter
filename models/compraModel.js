@@ -1,37 +1,66 @@
-import mongoose from "mongoose";
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../models/compra_model.dart';
 
-const compraSchema = new mongoose.Schema(
-  {
-    proveedor: { // Campo textual para el proveedor (nombre, NIT, o similar)
-      type: String,
-      required: true,
-    },
-    facturaProveedor: { // Número de la factura
-      type: Number,
-      required: true,
-      unique: true,
-    },
-    cantidad: { // Cantidad de productos comprados
-      type: Number,
-      required: true,
-    },
-    total: { // Total del valor de la compra
-      type: Number,
-      required: true,
-    },
-    fechaCompra: { // Fecha en la que se realiza la compra
-      type: Date,
-      default: Date.now,
-    },
-    estadoCompra: { // Estado de la compra (activa o no)
-      type: Boolean,
-      default: true,
-    },
-  },
-  {
-    timestamps: true, // Agrega createdAt y updatedAt automáticamente
+class CompraService {
+  final String apiUrl =
+      'https://proyecto-flutter.onrender.com/api/compras'; // Cambia esta URL por la de tu API
+
+  // Obtener todas las compras
+  Future<List<Compra>> getCompras() async {
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => Compra.fromJson(item)).toList();
+    } else {
+      throw Exception('Error al cargar las compras');
+    }
   }
-);
 
-const Compra = mongoose.model("Compra", compraSchema);
-export default Compra;
+  // Obtener una compra por ID
+  Future<Compra> getCompraById(String id) async {
+    final response = await http.get(Uri.parse('$apiUrl/$id'));
+
+    if (response.statusCode == 200) {
+      return Compra.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error al obtener la compra');
+    }
+  }
+
+  // Crear una nueva compra
+  Future<void> createCompra(Compra compra) async {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(compra.toJson()),
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Error al crear la compra');
+    }
+  }
+
+  // Actualizar una compra
+  Future<void> updateCompra(String id, Compra compra) async {
+    final response = await http.put(
+      Uri.parse('$apiUrl/$id'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(compra.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar la compra');
+    }
+  }
+
+  // Eliminar una compra
+  Future<void> deleteCompra(String id) async {
+    final response = await http.delete(Uri.parse('$apiUrl/$id'));
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al eliminar la compra');
+    }
+  }
+}
