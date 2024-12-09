@@ -5,7 +5,7 @@ import {
   createCompra,
   updateCompra,
   deleteCompra,
-} from "../Controllers/compraController.js"; // Ruta corregida
+} from "../Controllers/compraController.js"; // Importa las funciones del controlador actualizado
 
 const router = express.Router();
 
